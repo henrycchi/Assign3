@@ -1,9 +1,9 @@
 import subprocess
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, SpellForm, HistoryForm
+from app.forms import LoginForm, RegistrationForm, SpellForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, QueryRecord
+from app.models import User
 from werkzeug.urls import url_parse
 
 @app.route('/')
@@ -75,35 +75,3 @@ def register():
         flash('Success, you are now a registered user!')
         return render_template('registerresult.html', success='success')
     return render_template('register.html', title='Register', form=form)
-
-@app.route('/history', methods=['GET', 'POST'])
-@login_required
-def history():
-    form = HistoryForm()
-    queries = QueryRecord.query.filter_by(user_id=current_user.id)
-    if current_user.admin:
-        queries = QueryRecord.query.all()
-    if form.validate_on_submit():
-        original = form.username.data
-        user = User.query.filter_by(username=original).first()
-        queries = QueryRecord.query.filter_by(user_id=user.id)
-    return render_template('history.html', title='History', form=form, queries=queries)
-
-@app.route('/history/query<int:query_id>', methods=['GET'])
-@login_required
-def query(query_id):
-    result = QueryRecord.query.filter_by(id=query_id, user_id=current_user.id).first()
-    if current_user.admin:
-        result = QueryRecord.query.filter_by(id=query_id).first()
-    if result:
-        return render_template('query.html', title='Query Show', query=result, user=current_user)
-    else:
-        return redirect(url_for('history'))
-
-
-@app.route('/login_history', methods=['GET'])
-@login_required
-def logins():
-    return render_template('login_history.html', title='Login History')
-
-
