@@ -39,7 +39,7 @@ class QueryRecord(db.Model):
     user_id = db.Column(db.Integer, index=True, unique=False)
 
     def __repr__(self):
-        return '<Qqquery {}>'.format(self.id)
+        return '<QueryRecord {}>'.format(self.id)
 
 
 
