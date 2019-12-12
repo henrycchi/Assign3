@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Register Result</h1>
+    <h2> The status of your user registration is: </h2>
+    <h2 id="success"> {{success}} </h2>
+    {% if success == 'success' %}
+      <p> Login Here <a href="/login"> Login </a> </p>
+  {% endif %}
+    
+{% endblock %}

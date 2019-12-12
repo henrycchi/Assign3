@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if qqquery %}
+        <div>Query{{ qqquery.id }} from User{{ user.id }}</div>
+        <p id="queryid">{{ qqquery.id }}</p>
+        <p id="username">{{ user.id }}</p>
+        <p id="querytext">{{ qqquery.data }}</p>
+        <p id="queryresults">{{ qqquery.output }}</p>
+    {% endif %}
+{% endblock %}

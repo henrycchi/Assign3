@@ -1,0 +1,3 @@
+[submodule "SpellChecker"]
+	path = SpellChecker
+	url = https://github.com/Kurlee/SpellChecker.git

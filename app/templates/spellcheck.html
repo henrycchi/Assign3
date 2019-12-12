@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block header %}
+        <h1>{% block title %}SpellChecker{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+    <h2>Text Input</h2>
+    {{ form.hidden_tag() }}
+    <p>
+            {{ form.inputtext.label }}<br>
+            {{ form.inputtext(cols=32, rows=8) }}
+                        {% for error in form.inputtext.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+        <h2>Text that was entered</h2>
+        <div id="textout">{{ textout }}</div>
+        <h2>Misspelled Words</h2>
+        <div id="misspelled">{{ misspelled }}</div>
+{% endblock %}
